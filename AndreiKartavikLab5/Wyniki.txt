@@ -1,0 +1,12 @@
+Numer serii: 1
+Wyliczona wartość: 0.25
+Kod sposobu przetwarzania: 0
+
+Numer serii: 2
+Wyliczona wartość: 0.40
+Kod sposobu przetwarzania: 1
+
+Numer serii: 3
+Wyliczona wartość: 0.10
+Kod sposobu przetwarzania: 2
+
