@@ -11,7 +11,7 @@ struct person{
     int number_of_books = 0;
 };
 struct book{
-    string name;
+    string name, author;
     int quantity;
 };
 bool comp (person a, person b){
@@ -23,7 +23,6 @@ vector <book> list_book(0);
 int mxi = -1, mxn = -1, mxs = -1;
 
 void starting(){
-    cout << "This is a library simulation." << endl << endl << "The following operations are available to you:";
     cout << endl << "        working with users:";
     cout << endl << "N - create a new user";
     cout << endl << "C - change information about an user";
@@ -37,26 +36,62 @@ void starting(){
     cout << endl << endl;
 }
 
+bool checking_Name_Surname(string s){
+    for (int i=0; i<s.size(); i++){
+        if ((i == 0 && s[0] >='A' && s[0]<='Z') || (s[i]>='a' && s[i]<='z')){
+
+        } else {
+            cout << "Sorry, you made a mistake ,try again" << endl << endl;;
+            return 0;
+        }
+    }
+    return 1;
+}
+
 void createuser(){
     person a;
-    cout << "Write user's name:" << endl;
-    cin >> a.name;
+    bool b =0;
+
+
+    while (b == 0){
+            cout << "Write user's name:" << endl;
+        cin >> a.name;
+        if (checking_Name_Surname(a.name) == 1) {
+            b = 1;
+        }
+    }
+
     int x = a.name.size();
-    cout << "Write user's surname:" << endl;;
-    cin >> a.surname;
+    b = 0;
+
+
+    while (b == 0){
+              cout << "Write user's surname:" << endl;
+        cin >> a.surname;
+        if (checking_Name_Surname(a.surname) == 1) {
+            b = 1;
+        }
+    }
+
     int y= a.surname.size();
+
     cout << "Write user's index(it must be unique)" << endl;
-    bool b=0;
+    b=0;
     while (b==0){
             cin >> a.index;
-            b=1;
-        for (int i=0; i<list_user.size(); i++){
+            if (a.index.size() == 6){
+                     b=1;
+                 for (int i=0; i<list_user.size(); i++){
             if (a.index == list_user[i].index){
                 cout << "You need to give an unique index, try again" << endl;
                 b=0;
             }
         }
-    }
+            }else{
+                cout << "Sorry, you made a mistake ,try again" << endl << endl;;
+            }
+        }
+
     int z= a.index.size();
     mxi = max(mxi, z);
     mxn = max(mxn, x);
@@ -80,24 +115,41 @@ void changeuser(){
                 cin >> ss;
                 if (ss == "n"){
                     cout << "Write a new name " << endl;
-                    cin >> s;
+                    bool t=0;
+                    while (t==0){
+                        cin >> s;
+                        if (checking_Name_Surname(s) == 1){
+                            t=1;
+                        }
+                    }
                     list_user[i].name=s;
                 }else if (ss == "s"){
                     cout << "Write a new surname " << endl;
+                    bool t=0;
+                    while (t==0){
                     cin >> s;
+                    if (checking_Name_Surname(s) == 1){
+                            t=1;
+                        }
+                    }
                     list_user[i].surname=s;
                 } else if (ss== "i"){
                     cout << "Write a new index " << endl;
                         bool bb=0;
                         while (bb==0){
                             cin >> s;
+                            if (s.size() == 6){
                             bb=1;
-                        for (int j=0; j<list_user.size(); j++){
+                            for (int j=0; j<list_user.size(); j++){
                             if (s == list_user[j].index){
                             cout << "You need to give an unique index" << endl;
                             bb=0;
             }
         }
+                            } else {
+                                cout << "Try again" << endl;;
+                            }
+
     }
           list_user[i].index = s;
                 }
@@ -112,8 +164,22 @@ void changeuser(){
 
 if (test == 0){
     cout << "Sorry, but you make a mistake" << endl;
+    cout << "Do, you want to try again? (Y - yes, N - no)" << endl;;
+    char ccc;
+    cin >> ccc;
+    if (ccc=='N'){
+        return ;
+    } else {
+            cout << "Give the index of an user, who should be changed" << endl;
+    }
 } else{
     cout << "Changing was successful" << endl;
+    cout << endl << "Do you want to change something else? (Y - yes, N - no)" << endl;
+    char r;
+    cin >> r;
+    if (r == 'Y'){
+        changeuser();
+    }
 }
         }
 }
@@ -186,13 +252,56 @@ void deleteuser(){
     }
 }
 
+
+bool check_author(string s){
+    for (int i=0; i<s.size(); i++){
+        if ((s[i] >='a' && s[i]<='z') || (s[i]>='A' && s[i]<='Z') || s[i] == ' ' || s[i] == '-'){
+
+        } else {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+
 void createbook(){
     book a;
+    bool b = 0;
+    string str;
+    int x = 0;
     cout << "Write a name of the book" << endl;
     getline(cin, a.name);
     getline(cin, a.name);
-    cout << "Write a quantity of this books (how much we have this books)" << endl;
-    cin >> a.quantity;
+    bool q = 1;
+    while (q==1){
+        cout << "Write a name of the author" << endl;
+     getline(cin, a.author);
+     if (check_author(a.author) == 1){
+        q = 0;
+     } else {
+        cout << "You write a wrong name of the author" << endl << endl;;
+     }
+    }
+
+    while (b == 0){
+            x=0;
+            b=1;
+        cout << "Write a quantity of this books (how much we have this books)" << endl;
+        cin >> str;
+        for (int i=0 ; i<str.size(); i++){
+            if (str[i]>='0' && str[i]<='9'){
+                x*=10;
+                x+=(str[i]-'0');
+            }else {
+                cout << "You made a mistake, try again" << endl << endl;
+                b = 0;
+                break;
+            }
+        }
+    }
+    a.quantity = x;
+
     list_book.push_back(a);
     cout << "Books were added" << endl;
 }
@@ -201,13 +310,14 @@ void showbook(){
    cout << "This is the list of books:" << endl;
 
     for (int i=0; i<list_book.size(); i++){
-        cout << '"' << list_book[i].name << '"' << " - we have " << list_book[i].quantity << " examples" << endl;
+        cout << '"' << list_book[i].name << '"' << " (" << list_book[i].author << ")"  << " - we have " << list_book[i].quantity << " examples" << endl;
     }
 }
 
 void takebook(){
     cout << "Write the index of an user" << endl;
-    string s; cin >> s;
+    string s;
+    cin >> s;
     int ind;
     bool test = 0;
     for (int i=0; i<list_user.size(); i++){
@@ -225,7 +335,9 @@ void takebook(){
         cout << "What you want to do? (t - take a book, r - return a book)" << endl;
         char  c;
         cin >> c;
-        if (c=='t'){
+        bool bo = 0;
+        while (bo == 0){
+            if (c=='t'){
                 if (list_user[ind].number_of_books==3){
         cout << "Sorry, but you already have 3 books, so return an old one, to take a new" << endl;
         takebook();
@@ -245,6 +357,7 @@ void takebook(){
                     }
                 }
             }
+            bo = 1;
         } else if (c=='r'){
             cout << "Write a name of book, that you return to take"<< endl;;
             string ss;
@@ -259,7 +372,18 @@ void takebook(){
                     }
                 }
     }
+            bo = 1;
+        } else {
+            cout << "There is no such an action, try again" << endl << endl;
+            bo=0;
         }
+    }
+        }
+
+    cout << "Do you want to take or return a book again? (Y - yes, N - no)" << endl;
+    char c;
+    if (c=='Y'){
+        takebook();
     }
 }
 
@@ -271,17 +395,23 @@ int main()
 {
     ifstream fin ("input.txt");
     ofstream fout ("output.txt");
-    
-    char c='q';
-    while (c!='Q'){
+
+     cout << "This is a library simulation." << endl << endl << "The following operations are available to you:";
+
+    string c="_";
+    while (c!="Q"){
 
         starting();
         cin >> c;
-        if (c<='z' && c>='a'){
-            c+='A'-'a';
+        if (c.size()!=1){
+                cout << "Incorrect input, please try again" << endl << endl;;
+            continue;
+        }
+        if (c[0]<='z' && c[0]>='a'){
+            c[0]+='A'-'a';
         }
 
-        switch (c) {
+        switch (c[0]) {
             case 'N':
                 createuser();
                 break;
@@ -307,7 +437,7 @@ int main()
                 quit();
                 break;
             default:
-                cout << "There is no such an option\nPlease, try again" << endl;
+                cout << "There is no such an option\nPlease, try again" << endl << endl;;
                 break;
         }
     }
