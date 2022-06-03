@@ -188,7 +188,8 @@ if (test == 0){
 }
 
 void showuser(){
-     if (list_user.size()!=0){
+    if (list_user.size()!=0){
+     /*
     cout << "This is the list of users:" << endl;
 
     cout <<" Name";
@@ -208,7 +209,7 @@ void showuser(){
 
     cout << endl;
 
-    for (int i=0; i<mxi+mxs+mxn+12; i++){
+    for (int i=0; i<mxi+mxs+mxn+14; i++){
         cout << "-";
     }
 
@@ -222,16 +223,16 @@ string N, S, I;
             I = list_user[i].index;
         cout << "| " << list_user[i].name;
 
-        for (int q=0; q<mxn-N.size()+1; q++){
+        for (int q=0; q<mxn-N.size()+2; q++){
             cout << " ";
         }
         cout << " | " << list_user[i].surname;
-        for (int q=0; q<mxs-S.size()+1; q++){
+        for (int q=0; q<mxs-S.size()+2; q++){
             cout << " ";
         }
         cout << " | " << list_user[i].index << " | "<<endl;
 
-    for (int qqq=0; qqq<mxi+mxs+mxn+12; qqq++){
+    for (int qqq=0; qqq<mxi+mxs+mxn+14; qqq++){
         cout << "-";
     }
     cout << endl;
@@ -239,9 +240,11 @@ string N, S, I;
 
     cout << endl;
 
- //   for (int i=0; i<list_user.size(); i++){
- //       cout << list_user[i].name << " " <<  list_user[i].surname << " " << list_user[i].index << endl;;;
- //   }
+
+ */
+ for (int i=0; i<list_user.size(); i++){
+       cout << list_user[i].name << " " <<  list_user[i].surname << " " << list_user[i].index << endl;;;
+   }
 } else{
     cout << "We have no users" << endl;
 }
@@ -321,9 +324,17 @@ void createbook(){
         }
     }
     a.quantity = x;
-
-    list_book.push_back(a);
+    bool check = 0;
+    for (int i=0; i<list_book.size(); i++){
+        if (list_book[i].author == a.author && list_book[i].name == a.name && list_book[i].quantity == a.quantity){
+            check=1;
+        }
+    }
+    if (check == 0){
+         list_book.push_back(a);
     cout << "Books were added" << endl;
+    }
+
 }
 
 void showbook(){
@@ -354,7 +365,7 @@ void takebook(){
     }
 
     if (test == 0){
-        cout << "Sorry, but you make a mistake, try everyting again" << endl;
+        cout << "Sorry, but you make a mistake, try everything again" << endl;
         takebook();
     } else {
         cout << "What you want to do? (t - take a book, r - return a book)" << endl;
@@ -385,7 +396,8 @@ void takebook(){
                 }
             }
             if (check == 0){
-                cout << "Sorry, we haven't this book" << endl;
+                cout << "Sorry, we haven't this book, you can't take it" << endl;
+
             }
             check = 0;
             bo = 1;
@@ -405,8 +417,10 @@ void takebook(){
     }
             bo = 1;
             if (check == 0){
-                cout << "We haven't got this book "  << endl;
+                cout << "We haven't got this book, you can't return it"  << endl;
+
             }
+            check = 0;
         } else {
             cout << "There is no such an action, try again" << endl << endl;
             bo=0;
@@ -416,6 +430,7 @@ void takebook(){
 
     cout << "Do you want to take or return a book again? (Y - yes, N - no)" << endl;
     char c;
+    cin >> c;
     if (c=='Y'){
         takebook();
     }
@@ -461,7 +476,15 @@ int main()
         bbb.name = NAME;
         bbb.author = AUTHOR;
         bbb.quantity = N_BOOKS;
-        list_book.push_back(bbb);
+        bool check = 0;
+    for (int i=0; i<list_book.size(); i++){
+        if (list_book[i].author == bbb.author && list_book[i].name == bbb.name && list_book[i].quantity == bbb.quantity){
+            check=1;
+        }
+    }
+    if (check == 0){
+         list_book.push_back(bbb);
+    }
     }
     }
     cout << "This is a library simulation." << endl << endl << "The following operations are available to you:";
@@ -526,7 +549,7 @@ int main()
         }
     }
     for (int i=0 ; i<list_book.size(); i++){
-        fBooks << list_book[i].name << " " << list_book[i].author  << " " << list_book[i].quantity << endl;
+        fBooks << list_book[i].name << " " << list_book[i].author  << " " << list_book[i].quantity ;
         if (i != list_book.size()-1){
             fBooks << endl;
         }
@@ -539,4 +562,3 @@ int main()
     fStudents.close();
     return 0;
 }
-
