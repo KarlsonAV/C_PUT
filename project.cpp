@@ -78,6 +78,7 @@ void createuser(){
 
     cout << "Write user's index(it must be unique)" << endl;
     b=0;
+
     while (b==0){
             cin >> a.index;
             if (a.index.size() == 6){
@@ -100,6 +101,7 @@ void createuser(){
     list_user.push_back(a);
     sort(list_user.begin(), list_user.end(), comp);
     cout << "Person was added" << endl;;
+
 }
 
 void changeuser(){
@@ -192,40 +194,51 @@ void showuser(){
     for (int q = 0; q<mxn; q++ ){
         cout << " ";
     }
+
     cout << " Surname";
     for (int q = 0; q<mxs-2; q++ ){
         cout << " ";
     }
+
     cout << " Index";
     for (int q = 0; q<mxi-6; q++ ){
         cout << " ";
     }
+
     cout << endl;
-    for (int i=0; i<mxi+mxs+mxn+10; i++){
+    for (int i=0; i<mxi+mxs+mxn+12; i++){
         cout << "-";
     }
+
     cout << endl;
+string N, S, I;
+
     for (int i=0; i<list_user.size(); i++){
+            N = list_user[i].name;
+            S = list_user[i].surname;
+            I = list_user[i].index;
         cout << "| " << list_user[i].name;
-        for (int q=0; q<mxn-list_user[i].name.size(); q++){
+
+        for (int q=0; q<mxn-N.size()+1; q++){
             cout << " ";
         }
         cout << " | " << list_user[i].surname;
-        for (int q=0; q<mxs-list_user[i].surname.size(); q++){
+        for (int q=0; q<mxs-S.size()+1; q++){
             cout << " ";
         }
-        cout << " | " << list_user[i].index;
-        for (int q=0; q<mxi-list_user[i].index.size(); q++){
-            cout << " ";
-        }
-        cout <<" | "<<endl;
+        cout << " | " << list_user[i].index << " | "<<endl;
 
-    for (int qqq=0; qqq<mxi+mxs+mxn+10; qqq++){
+    for (int qqq=0; qqq<mxi+mxs+mxn+12; qqq++){
         cout << "-";
     }
     cout << endl;
     }
+
     cout << endl;
+
+ //   for (int i=0; i<list_user.size(); i++){
+ //       cout << list_user[i].name << " " <<  list_user[i].surname << " " << list_user[i].index << endl;;;
+ //   }
 }
 
 void deleteuser(){
@@ -396,6 +409,8 @@ int main()
 {
     fBooks.open("book.txt", fstream::in | fstream::out);
     fStudents.open("student.txt", fstream::in | fstream::out);
+    if (fBooks.is_open() && fStudents.is_open()){
+
 
     string NAME, SURNAME, IND, AUTHOR;
     int Q_BOOKS, N_BOOKS;
@@ -471,6 +486,31 @@ int main()
                 break;
         }
     }
+
+    fBooks.close();
+    fStudents.close();
+
+  //  fStudents.clear();
+   // fBooks.clear();
+
+    fBooks.open("book.txt", fstream::in | fstream::out);
+    fStudents.open("student.txt", fstream::in | fstream::out);
+
+    for (int i=0 ; i<list_user.size(); i++){
+        fStudents << list_user[i].name << " " << list_user[i].surname << " " << list_user[i].index << " " << list_user[i].number_of_books ;
+        if (i != list_user.size()-1){
+            fStudents << endl;
+        }
+    }
+    for (int i=0 ; i<list_book.size(); i++){
+        fBooks << list_book[i].name << " " << list_book[i].author  << " " << list_book[i].quantity << endl;
+        if (i != list_book.size()-1){
+            fBooks << endl;
+        }
+    }
+     }else {
+        cout << "Sorry, you can't work with files, try again" << endl;;
+     }
 
     fBooks.close();
     fStudents.close();
