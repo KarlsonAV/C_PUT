@@ -188,6 +188,7 @@ if (test == 0){
 }
 
 void showuser(){
+     if (list_user.size()!=0){
     cout << "This is the list of users:" << endl;
 
     cout <<" Name";
@@ -206,9 +207,11 @@ void showuser(){
     }
 
     cout << endl;
+
     for (int i=0; i<mxi+mxs+mxn+12; i++){
         cout << "-";
     }
+
 
     cout << endl;
 string N, S, I;
@@ -239,6 +242,9 @@ string N, S, I;
  //   for (int i=0; i<list_user.size(); i++){
  //       cout << list_user[i].name << " " <<  list_user[i].surname << " " << list_user[i].index << endl;;;
  //   }
+} else{
+    cout << "We have no users" << endl;
+}
 }
 
 void deleteuser(){
@@ -321,11 +327,16 @@ void createbook(){
 }
 
 void showbook(){
-   cout << "This is the list of books:" << endl;
+    if (list_book.size()!=0){
+        cout << "This is the list of books:" << endl;
 
     for (int i=0; i<list_book.size(); i++){
         cout << '"' << list_book[i].name << '"' << " (" << list_book[i].author << ")"  << " - we have " << list_book[i].quantity << " examples" << endl;
     }
+    }else{
+        cout << "We have no books" << endl;
+    }
+
 }
 
 void takebook(){
