@@ -6,6 +6,8 @@
 
 using namespace std;
 
+fstream fBooks ,fStudents;
+
 struct person{
     string name, surname, index;
     int number_of_books = 0;
@@ -51,7 +53,6 @@ bool checking_Name_Surname(string s){
 void createuser(){
     person a;
     bool b =0;
-
 
     while (b == 0){
             cout << "Write user's name:" << endl;
@@ -393,10 +394,39 @@ void quit(){
 
 int main()
 {
-    ifstream fin ("input.txt");
-    ofstream fout ("output.txt");
+    fBooks.open("book.txt", fstream::in | fstream::out);
+    fStudents.open("student.txt", fstream::in | fstream::out);
 
-     cout << "This is a library simulation." << endl << endl << "The following operations are available to you:";
+    string NAME, SURNAME, IND, AUTHOR;
+    int Q_BOOKS, N_BOOKS;
+    person aaa;
+    book bbb;
+    while (!fStudents.eof()){
+        fStudents >> NAME >> SURNAME >> IND >> Q_BOOKS;
+
+        aaa.name = NAME;
+        aaa.surname = SURNAME;
+        aaa.index = IND;
+        aaa.number_of_books = Q_BOOKS;
+        int x = aaa.index.size(), y= aaa.name.size(), z = aaa.surname.size();
+           mxn = max(mxn, y);
+           mxs = max(mxs, z);
+           mxi = max(mxi, x);
+        list_user.push_back(aaa);
+        sort(list_user.begin(), list_user.end(), comp);
+
+
+    }
+
+    while (!fBooks.eof()){
+        fBooks >> NAME >> AUTHOR >> N_BOOKS;
+        bbb.name = NAME;
+        bbb.author = AUTHOR;
+        bbb.quantity = N_BOOKS;
+        list_book.push_back(bbb);
+    }
+
+    cout << "This is a library simulation." << endl << endl << "The following operations are available to you:";
 
     string c="_";
     while (c!="Q"){
@@ -442,6 +472,8 @@ int main()
         }
     }
 
-
+    fBooks.close();
+    fStudents.close();
     return 0;
 }
+
