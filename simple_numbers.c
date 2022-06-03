@@ -7,8 +7,8 @@ int main(void) {
     int n;
     printf("Input n: ");
     scanf("%d", &n);
-    int arr[n];
-    int state[n];
+    int *arr = malloc(n*sizeof(int));
+    int *state = malloc(n*sizeof(int));
 
     clock_t start, end;
     double cpu_time_used;

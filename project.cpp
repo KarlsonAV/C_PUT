@@ -326,7 +326,8 @@ void createbook(){
     a.quantity = x;
     bool check = 0;
     for (int i=0; i<list_book.size(); i++){
-        if (list_book[i].author == a.author && list_book[i].name == a.name && list_book[i].quantity == a.quantity){
+        if (list_book[i].author == a.author && list_book[i].name == a.name){
+            cout << "Add text" << endl;
             check=1;
         }
     }
