@@ -334,7 +334,7 @@ void showbook(){
         cout << '"' << list_book[i].name << '"' << " (" << list_book[i].author << ")"  << " - we have " << list_book[i].quantity << " examples" << endl;
     }
     }else{
-        cout << "We have no books" << endl;
+        cout << "We have no books" << endl<< endl;
     }
 
 }
@@ -344,7 +344,7 @@ void takebook(){
     string s;
     cin >> s;
     int ind;
-    bool test = 0;
+    bool test = 0, check = 0;
     for (int i=0; i<list_user.size(); i++){
             if (s == list_user[i].index){
                 test = 1;
@@ -369,6 +369,7 @@ void takebook(){
     }
             cout << "Write a name of book, that you want to take"<< endl;;
             string ss;
+
             getline(cin, ss);
             getline(cin, ss);
             for (int j=0; j<list_book.size(); j++){
@@ -377,11 +378,16 @@ void takebook(){
                         cout << "Okey, you take it" <<endl;;
                         list_book[j].quantity--;
                         list_user[ind].number_of_books++;
+                        check = 1;
                     } else {
                         cout << "Sorry, we haven't this book anymore" << endl;;
                     }
                 }
             }
+            if (check == 0){
+                cout << "Sorry, we haven't this book" << endl;
+            }
+            check = 0;
             bo = 1;
         } else if (c=='r'){
             cout << "Write a name of book, that you return to take"<< endl;;
@@ -390,14 +396,17 @@ void takebook(){
             getline(cin, ss);
             for (int j=0; j<list_book.size(); j++){
                 if (ss==list_book[j].name){
-                    if (list_book[j].quantity > 0){
+
                         cout << "Okey, you return it" <<endl;;
                         list_book[j].quantity++;
                         list_user[ind].number_of_books--;
-                    }
+                    check = 1;
                 }
     }
             bo = 1;
+            if (check == 0){
+                cout << "We haven't got this book "  << endl;
+            }
         } else {
             cout << "There is no such an action, try again" << endl << endl;
             bo=0;
