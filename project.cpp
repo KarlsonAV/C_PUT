@@ -411,11 +411,13 @@ int main()
     fStudents.open("student.txt", fstream::in | fstream::out);
     if (fBooks.is_open() && fStudents.is_open()){
 
-
-    string NAME, SURNAME, IND, AUTHOR;
+     string NAME, SURNAME, IND, AUTHOR;
     int Q_BOOKS, N_BOOKS;
-    person aaa;
+ person aaa;
     book bbb;
+
+    if (fStudents.peek() != EOF) {
+
     while (!fStudents.eof()){
         fStudents >> NAME >> SURNAME >> IND >> Q_BOOKS;
 
@@ -429,9 +431,10 @@ int main()
            mxi = max(mxi, x);
         list_user.push_back(aaa);
         sort(list_user.begin(), list_user.end(), comp);
-
-
     }
+    }
+
+   if (fBooks.peek() != EOF) {
 
     while (!fBooks.eof()){
         fBooks >> NAME >> AUTHOR >> N_BOOKS;
@@ -440,7 +443,7 @@ int main()
         bbb.quantity = N_BOOKS;
         list_book.push_back(bbb);
     }
-
+    }
     cout << "This is a library simulation." << endl << endl << "The following operations are available to you:";
 
     string c="_";
