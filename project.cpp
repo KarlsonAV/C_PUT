@@ -424,7 +424,7 @@ void takebook(){
             check = 0;
         } else {
             cout << "There is no such an action, try again" << endl << endl;
-            bo=0;
+            bo=1;
         }
     }
         }
