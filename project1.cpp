@@ -53,7 +53,7 @@ bool checking_Name_Surname(string s){
 
 // Function that creates a User
 void createuser(){
-    
+
     student a;
     bool check =0;
 
@@ -70,7 +70,7 @@ void createuser(){
 
 
     while (check == 0){
-        
+
         cout << "Write user's surname:" << endl;
         cin >> a.surname;
         if (checking_Name_Surname(a.surname) == 1) {
@@ -144,7 +144,7 @@ void changeuser(){
                         }
                     }
                     list_user[i].surname=s;
-                } 
+                }
                 else if (ss == "i"){
                     cout << "Write a new index " << endl;
                         bool bb = 0;
@@ -158,7 +158,7 @@ void changeuser(){
                                 bb = 0;
                                     }
                             }
-                        } 
+                        }
                         else {
                                 cout << "Try again" << endl;;
                             }
@@ -555,8 +555,8 @@ int main()
     fStudents.close();
 
     // Write new information into the files
-    fBooks.open("book.txt", fstream::in | fstream::out);
-    fStudents.open("student.txt", fstream::in | fstream::out);
+    fBooks.open("book.txt", fstream::trunc | fstream::out);
+    fStudents.open("student.txt", fstream::trunc | fstream::out);
 
     for (int i=0 ; i<list_user.size(); i++){
         fStudents << list_user[i].name << " " << list_user[i].surname << " " << list_user[i].index << " " << list_user[i].number_of_books ;
